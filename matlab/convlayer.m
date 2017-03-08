@@ -21,5 +21,5 @@ y = vl_nnconv(x, w, [], 'stride', 4);
 % Output profiling data
 profile viewer
 
-% Display the 10 filter outputs
+% Display the 48 filter outputs
 figure(2); clf; vl_imarraysc(y); colormap gray;

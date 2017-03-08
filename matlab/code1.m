@@ -14,8 +14,7 @@ w = randn(11, 11, 3, 48, 'single');
 % Start profiling
 profile on;
 
-% Perform convolution of the input with the filter bank and apply
-% downsampling using a stride factor
+% Perform convolution of the input as per Code 1
 y=zeros(54,54,48);
 for row = 1:54
     for col = 1:54
@@ -36,5 +35,5 @@ end
 % Output profiling data
 profile viewer
 
-% Display the 10 filter outputs
+% Display the 48 filter outputs
 figure(2); clf; vl_imarraysc(y); colormap gray;
