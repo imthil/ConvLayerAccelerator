@@ -20,10 +20,10 @@ for row = 1:54
     for col = 1:54
         for to = 1:48
             for ti = 1:3
-                for i = 1:5
-                    for j = 1:5
+                for i = 1:11
+                    for j = 1:11
                         y(row,col,to) = y(row,col,to)... 
-                            + w(i,j,ti,to) * x(4*row+i,4*col+j,ti); 
+                            + w(i,j,ti,to) * x(4*(row-1)+i,4*(col-1)+j,ti); 
                     end
                 end
             end
