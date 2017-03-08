@@ -16,7 +16,22 @@ profile on;
 
 % Perform convolution of the input with the filter bank and apply
 % downsampling using a stride factor
-y = vl_nnconv(x, w, [], 'stride', 4);
+y=zeros(54,54,48);
+for row = 1:54
+    for col = 1:54
+        for to = 1:48
+            for ti = 1:3
+                for i = 1:5
+                    for j = 1:5
+                        y(row,col,to) = y(row,col,to)... 
+                            + w(i,j,ti,to) * x(4*row+i,4*col+j,ti); 
+                    end
+                end
+            end
+        end
+    end
+end
+
 
 % Output profiling data
 profile viewer
