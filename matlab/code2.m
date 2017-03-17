@@ -15,7 +15,7 @@ C = R;
 % Tiling Params
 Tr = 4;
 Tc = 4;
-Tm = 4;
+Tm = 48;
 Tn = 3;
 
 % Normalize the image, resize, convert to single precision and display
@@ -23,6 +23,8 @@ a = imnorm('lena512color.tiff');
 a = imresize(a, [W W]);
 x = im2single(a);
 figure(1); clf; imagesc(x);
+
+t = imtile(x,R,K,S);
 
 % Implement a 11x11x3x48 linear filter bank with random coefficients
 w = randn(K, K, N, M, 'single');
@@ -48,16 +50,27 @@ for row = 1:Tr:R
                 %c_high  = S*(col)+K-1;
                 %x_local = x(r_low:r_high,c_low:c_high,1:N);
                 
-                for trr = 1:min(row+Tr, R)
-                    for tcc = 1:min(col+Tc, C)
-                        for too = 1:min(to+Tm, M)
-                            for tii = 1:min(ti+Tn, N)
+                x_local = cell2mat(t(row:col));
+                
+                for trr = 1:min(row-1+Tr, R)
+                    for tcc = 1:min(col-1+Tc, C)
+                        for too = 1:min(to-1+Tm, M)
+                            for tii = 1:min(ti-1+Tn, N)
                                 for i = 1:K
-                                    for j = 1:K
+                                    if (mod(i,2) == 0)
+                                        for j = K:-1:1
                                         y(trr,tcc,too) = y(trr,tcc,too)... 
-                                                        + w(i,j,tii,too)...
-                                                        * x(S*(trr-1)+i,...
-                                                        S*(tcc-1)+j,tii); 
+                                            + w(i,j,tii,too)...
+                                            * x(S*(trr-1)+i,...
+                                            S*(tcc-1)+j,tii);
+                                        end
+                                    else
+                                        for j = 1:K
+                                        y(trr,tcc,too) = y(trr,tcc,too)... 
+                                            + w(i,j,tii,too)...
+                                            * x(S*(trr-1)+i,...
+                                            S*(tcc-1)+j,tii);
+                                        end
                                     end
                                 end
                             end
