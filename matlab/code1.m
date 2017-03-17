@@ -23,7 +23,7 @@ w = randn(K, K, N, M, 'single');
 
 % Start profiling
 profile on;
-
+DRAM = 0;
 % Perform convolution of the input as per Code 1
 y=zeros(R, C, M);
 for row = 1:R 
@@ -33,7 +33,9 @@ for row = 1:R
                 for i = 1:K
                     for j = 1:K
                         y(row,col,to) = y(row,col,to)... 
-                            + w(i,j,ti,to) * x(S*(row-1)+i,S*(col-1)+j,ti); 
+                            + w(i,j,ti,to) * x(S*(row-1)+i,S*(col-1)+j,ti);
+                        % Access to y (read and write), x(read) and w(read)
+                        DRAM = DRAM + 4;
                     end
                 end
             end
@@ -44,6 +46,6 @@ end
 
 % Output profiling data
 profile viewer
-
+fprintf('Number of DRAM Access: %d\n',DRAM);
 % Display the 48 filter outputs
 figure(2); clf; vl_imarraysc(y); colormap gray;

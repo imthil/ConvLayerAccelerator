@@ -32,7 +32,7 @@ w = randn(K, K, N, M, 'single');
 
 % Start profiling
 profile on;
-
+DRAM = 0;
 % Perform convolution of the input as per Code 2
 y=zeros(R, C, M);
 for row = 1:Tr:R 
@@ -45,7 +45,7 @@ for row = 1:Tr:R
                 w_local = w(:,:,:,:);
                 % Load input feature map
                 x_local = x(:,:,:);
-                
+                DRAM = DRAM + 3;
                 
                 for i = 1:K 
                     for j = 1:K 
@@ -71,6 +71,7 @@ for row = 1:Tr:R
                 end
                 % Store output feature maps
                 y=y_local;
+                DRAM = DRAM + 1;
             end
         end
     end
@@ -79,6 +80,6 @@ end
 
 % Output profiling data
 profile viewer
-
+fprintf('Number of DRAM Access: %d\n',DRAM);
 % Display the 48 filter outputs
 figure(2); clf; vl_imarraysc(y); colormap gray;
