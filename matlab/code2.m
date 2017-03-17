@@ -1,6 +1,6 @@
 % Author: Thilina Mallawa Arachchi
 % Email address: thilina@ieee.org  
-% March 2017; Last revision: 12-March-2017
+% March 2017; Last revision: 17-March-2017
 
 % Layer Params
 W = 224;    % Dim of Input Map
@@ -33,7 +33,7 @@ w = randn(K, K, N, M, 'single');
 % Start profiling
 profile on;
 
-% Perform convolution of the input as per Code 1
+% Perform convolution of the input as per Code 2
 y=zeros(R, C, M);
 for row = 1:Tr:R 
     for col = 1:Tc:C
