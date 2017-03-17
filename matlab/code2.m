@@ -24,7 +24,8 @@ a = imresize(a, [W W]);
 x = im2single(a);
 figure(1); clf; imagesc(x);
 
-t = imtile(x,R,K,S);
+% Function that tiles local images
+%t = imtile(x,R,K,S);
 
 % Implement a 11x11x3x48 linear filter bank with random coefficients
 w = randn(K, K, N, M, 'single');
@@ -44,6 +45,8 @@ for row = 1:Tr:R
                 w_local = w(:,:,:,:);
                 % Load input feature map
                 x_local = x(:,:,:);
+                
+                % Return local tiled images
                 %x_local = cell2mat(t(row:col));
                 
                 for trr = row:min(row-1+Tr, R)
@@ -52,16 +55,11 @@ for row = 1:Tr:R
                             for tii = ti:min(ti-1+Tn, N)
                                 for i = 1:K
                                     for j = 1:K
-%                                         y(trr,tcc,too) = y(trr,tcc,too)... 
-%                                             + w(i,j,tii,too)...
-%                                             * x(S*(trr-1)+i,...
-%                                             S*(tcc-1)+j,tii);
                                         y_local(trr,tcc,too) = ... 
                                             y_local(trr,tcc,too)... 
                                             + w_local(i,j,tii,too)...
                                             * x_local(S*(trr-1)+i,...
                                             S*(tcc-1)+j,tii);
-
                                     end
                                 end
                             end
@@ -69,7 +67,6 @@ for row = 1:Tr:R
                     end
                 end
                 % Store output feature maps
-%                 y(min(row-1+Tr, R), min(col-1+Tc, C), to ) = y_local;
                 y=y_local;
             end
         end
