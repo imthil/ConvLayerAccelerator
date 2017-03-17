@@ -39,38 +39,29 @@ for row = 1:Tr:R
         for to = 1:Tm:M
             for ti = 1:Tn:N
                 % Load output feature map
-                %y_local = y;
+                y_local = y(:,:,:);
                 % Load weights
-                %w_local = w;
+                w_local = w(:,:,:,:);
                 % Load input feature map
-                %x_local = x;
-                %r_low   = S*(row);
-                %r_high  = S*(row)+K-1;
-                %c_low   = S*(col);
-                %c_high  = S*(col)+K-1;
-                %x_local = x(r_low:r_high,c_low:c_high,1:N);
+                x_local = x(:,:,:);
+                %x_local = cell2mat(t(row:col));
                 
-                x_local = cell2mat(t(row:col));
-                
-                for trr = 1:min(row-1+Tr, R)
-                    for tcc = 1:min(col-1+Tc, C)
-                        for too = 1:min(to-1+Tm, M)
-                            for tii = 1:min(ti-1+Tn, N)
+                for trr = row:min(row-1+Tr, R)
+                    for tcc = col:min(col-1+Tc, C)
+                        for too = to:min(to-1+Tm, M)
+                            for tii = ti:min(ti-1+Tn, N)
                                 for i = 1:K
-                                    if (mod(i,2) == 0)
-                                        for j = K:-1:1
-                                        y(trr,tcc,too) = y(trr,tcc,too)... 
-                                            + w(i,j,tii,too)...
-                                            * x(S*(trr-1)+i,...
+                                    for j = 1:K
+%                                         y(trr,tcc,too) = y(trr,tcc,too)... 
+%                                             + w(i,j,tii,too)...
+%                                             * x(S*(trr-1)+i,...
+%                                             S*(tcc-1)+j,tii);
+                                        y_local(trr,tcc,too) = ... 
+                                            y_local(trr,tcc,too)... 
+                                            + w_local(i,j,tii,too)...
+                                            * x_local(S*(trr-1)+i,...
                                             S*(tcc-1)+j,tii);
-                                        end
-                                    else
-                                        for j = 1:K
-                                        y(trr,tcc,too) = y(trr,tcc,too)... 
-                                            + w(i,j,tii,too)...
-                                            * x(S*(trr-1)+i,...
-                                            S*(tcc-1)+j,tii);
-                                        end
+
                                     end
                                 end
                             end
@@ -78,7 +69,8 @@ for row = 1:Tr:R
                     end
                 end
                 % Store output feature maps
-                %y=y_local;
+%                 y(min(row-1+Tr, R), min(col-1+Tc, C), to ) = y_local;
+                y=y_local;
             end
         end
     end
