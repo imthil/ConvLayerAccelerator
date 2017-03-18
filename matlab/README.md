@@ -23,6 +23,7 @@ Finally, it perfroms the convolution of the input feature maps with weights give
 In Code 2 and 3, Tiling and local memory caching is introduced.
 
 ![Figure 2](../screenshots/output_feature_maps.png)
+
 *Requires VLFeat  to be installed to run vl_imarraysc, Figure 2 has been commented out in each code for systems without VLFeat*
 
 Matlab function *profile* is used to time each implementation, and a DRAM counter counts the number of DRAM accesses. 
