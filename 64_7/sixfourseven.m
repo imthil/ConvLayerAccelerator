@@ -3,8 +3,8 @@
 % March 2017; Last revision: 17-March-2017
 
 %Params
-Tm = 64;
-Tn = 7;
+Tm = single(64);
+Tn = single(7);
 
 % Set input and output feature map
 N = single(ones(1,Tn));
