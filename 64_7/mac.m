@@ -11,7 +11,7 @@ W_local = W;
 
 for mm = 1:Tm
     for nn = 1:Tn
-        % Processing Element
+        % Processing Element, a simple mac
         M_local(mm) = M_local(mm) + N_local(nn)*W_local(nn);
     end
 end
