@@ -2,7 +2,7 @@
 % Email address: thilina@ieee.org  
 % March 2017; Last revision: 17-March-2017
 
-function Tm = mac( M, N, W, Tm, Tn )
+function M_out = mac( M, N, W, Tm, Tn )
 %MAC simply multiplies and accumalates
 
 M_local = M;
@@ -17,6 +17,6 @@ for mm = 1:Tm
 end
 
 
-Tm = M_local;
+M_out = M_local;
 end
 
