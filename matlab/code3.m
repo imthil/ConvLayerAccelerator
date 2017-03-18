@@ -81,5 +81,5 @@ end
 % Output profiling data
 profile viewer
 fprintf('Number of DRAM Access: %d\n',DRAM);
-% Display the 48 filter outputs
+% Display the 54 filter outputs
 % figure(2); clf; vl_imarraysc(y); colormap gray;
