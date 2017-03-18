@@ -9,7 +9,7 @@ Accelerator for a Convolutional Layer written in Verilog. For SCU ELEN249, taugh
 
 2. Model the core part of the hardware accelerator (as shown in Fig 7 of the paper for the convolutional layer with unroll factor <64,7> in MATLAB and Verilog . Both should match.
 
-	**completed in ./verilog/ folder**
+	**completed in ./64_7/ folder**
 
 3. Model the DRAM access patterns for the input and output for all the 3 approaches in MATLAB. 
 
