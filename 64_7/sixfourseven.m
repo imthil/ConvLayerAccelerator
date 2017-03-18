@@ -14,12 +14,8 @@ M = single(zeros(1,Tm));
 % For simplicity lets assume all wieghts are the same
 W = single([1 0.95 0.85 0.25 0 0 0.45]); 
 
-for mm = 1:Tm
-    for nn = 1:Tn
-        % Processing Element
-        M(mm) = mac( M, N, W, mm, nn );
-    end
-end
+% Do computation across all PEs to get M
+M = mac( M, N, W, Tm, Tn );
 
 checker = 1;
 for check = 1:Tm-1
